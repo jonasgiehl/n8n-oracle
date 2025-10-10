@@ -1,0 +1,36 @@
+name: Build and Push n8n Oracle (GHCR)
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v4
+
+      - name: Login no GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build da imagem
+        run: |
+          IMAGE_NAME=ghcr.io/${{ github.repository }}/n8n-oracle:latest
+          echo "Building $IMAGE_NAME"
+          docker build -t $IMAGE_NAME .
+
+      - name: Push da imagem
+        run: |
+          IMAGE_NAME=ghcr.io/${{ github.repository }}/n8n-oracle:latest
+          docker push $IMAGE_NAME
