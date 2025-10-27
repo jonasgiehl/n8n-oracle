@@ -26,11 +26,12 @@ jobs:
 
       - name: Build da imagem
         run: |
-          IMAGE_NAME=ghcr.io/${{ github.repository }}/n8n-oracle:latest
+          IMAGE_NAME=ghcr.io/${{ github.repository }}/n8n-oracle:1.118.0
           echo "Building $IMAGE_NAME"
           docker build -t $IMAGE_NAME .
 
       - name: Push da imagem
         run: |
-          IMAGE_NAME=ghcr.io/${{ github.repository }}/n8n-oracle:latest
+          IMAGE_NAME=ghcr.io/${{ github.repository }}/n8n-oracle:1.118.0
           docker push $IMAGE_NAME
+
