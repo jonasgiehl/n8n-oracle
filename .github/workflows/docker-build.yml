@@ -2,8 +2,9 @@ name: Build and Push n8n Oracle (GHCR)
 
 on:
   push:
-    branches: ["main"]
+    branches: [ "main" ]
   workflow_dispatch:
+
 
 jobs:
   build:
@@ -13,25 +14,27 @@ jobs:
       contents: read
       packages: write
 
+    env:
+      BASE_TAG: 1.121.0
+
     steps:
-      - name: Checkout código
-        uses: actions/checkout@v4
+    - name: Checkout código
+      uses: actions/checkout@v4
 
-      - name: Login no GHCR
-        uses: docker/login-action@v3
-        with:
-          registry: ghcr.io
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Login no GHCR
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build da imagem
-        run: |
-          IMAGE_NAME=ghcr.io/${{ github.repository }}/n8n-oracle:1.118.0
-          echo "Building $IMAGE_NAME"
-          docker build -t $IMAGE_NAME .
+    - name: Build da imagem
+      run: |
+        IMAGE_NAME=ghcr.io/${{ github.repository }}/n8n-oracle:${BASE_TAG}
+        echo "Building $IMAGE_NAME"
+        docker build --build-arg ${BASE_TAG} -t $IMAGE_NAME .
 
-      - name: Push da imagem
-        run: |
-          IMAGE_NAME=ghcr.io/${{ github.repository }}/n8n-oracle:1.118.0
-          docker push $IMAGE_NAME
-
+    - name: Push da imagem
+      run: |
+        IMAGE_NAME=ghcr.io/${{ github.repository }}/n8n-oracle:${BASE_TAG}
+        docker push $IMAGE_NAME
