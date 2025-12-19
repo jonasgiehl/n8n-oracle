@@ -5,7 +5,7 @@ FROM n8nio/n8n:${BASE_TAG}
 USER root
 
 # Instalar dependências do Oracle (Alpine Linux)
-RUN apk add --no-cache libaio
+#RUN apk add --no-cache libaio
 
 # Instalar o plugin Oracle
 RUN npm install -g n8n-nodes-oracle-database-parameterization
