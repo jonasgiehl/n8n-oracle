@@ -15,7 +15,7 @@ jobs:
       packages: write
 
     env:
-      BASE_TAG: 1.121.0
+      BASE_TAG: 2.1.1
 
     steps:
     - name: Checkout código
