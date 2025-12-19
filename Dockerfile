@@ -1,4 +1,4 @@
-ARG BASE_TAG=1.118.0
+ARG BASE_TAG=2.1.1
 FROM n8nio/n8n:${BASE_TAG}
 
 
